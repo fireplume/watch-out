@@ -35,10 +35,6 @@ class WatchOutSettings:
         self.data_cap_reached_picture_name = "data_cap_reached.jpg"
         self.data_cap_reached_picture_path = self._user_path.joinpath("Google Drive/watch_out", self.data_cap_reached_picture_name)
 
-        # Camera system configuration
-        # Base IP address of your camera system
-        self.nvr_ip = "192.168.1.60"
-
         # FFMPEG configuration
         # camera_url example: rtsp://admin:{password:s}@192.168.1.2:554/ch0{camera_index:d}/0
         self.ffmpeg_output_format = "jpg"
