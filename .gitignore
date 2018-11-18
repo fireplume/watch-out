@@ -1,0 +1,8 @@
+__pycache__
+*.pyc
+*.cfg
+*.txt
+*.iml
+.idea
+ui/QWidgetPictureSettings.py
+
