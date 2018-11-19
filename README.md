@@ -20,10 +20,10 @@ Each cameras can be configured individually for:
 # Installation Notes
 
 Requirements:
-- Windows or Linux (only tested on Windows yet)
-- Python 3.7 (Tested/developed with Python 3.7)
+- Windows or Linux (Tested on both)
+- Python 3 (Tested/developed with Python 3.7)
     - Python needs to be in your system's path
-- FFMPEG (Tested/developed with ffmpeg-4.0.2-win64-static)
+- FFMPEG (Tested/developed with ffmpeg-4.0.2-win64-static on Windows, ffmpeg 4.0.2 on Ubuntu 18.04 LTS)
     - FFMPEG needs to be installed in specific folder (look at watch_out_lib/WatchOutSettings.py:self.ffmpeg_binary_path)
 - When data cap is reached, a pre-defined picture is copied in the snapshot folder, you need to create that picture and put it in specific folder (look at watch_out_lib/WatchOutSettings.py:self.data_cap_reached_picture_{name|path}
 
