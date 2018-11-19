@@ -17,11 +17,21 @@ from watch_out_lib.PictureHandler import PictureHandler
 from watch_out_lib.TimeTracker import time_tracker
 
 import argparse
+import signal
 import sys
 import time
 
 
 EXCEPTION_SLEEP_TIME = 20
+
+
+def signal_handler(sig, frame):
+    if sig == signal.SIGINT:
+        print('Exiting (<ctrl-c> pressed)')
+        sys.exit(0)
+
+
+signal.signal(signal.SIGINT, signal_handler)
 
 
 class WatchOut:
@@ -31,7 +41,8 @@ class WatchOut:
         logger.debug('##############################', 0)
         self._config = Config()
         self._settings = WatchOutSettings(args.camera_password)
-        time_tracker.set_time_multiplier(int(args.simulation[1]))
+        if args.simulation is not None:
+            time_tracker.set_time_multiplier(int(args.simulation[1]))
 
         self._data_cap_handler = DataCapHandler(args, self._config)
         self._picture_handler = PictureHandler(args, self._config, self._data_cap_handler)
@@ -97,7 +108,8 @@ def parse_args():
                         metavar=("DATA_CAP_MG", "TIME_MULTIPLIER"),
                         default=None,
                         nargs=2,
-                        help='For debugging purposes, set the data cap in MB and a passing time multiplier (max 7200, 2 hours per second).')
+                        help='For debugging purposes, set the data cap in MB and a passing time multiplier '
+                             '(max 7200, 2 hours per second).')
 
     args = parser.parse_args()
 
