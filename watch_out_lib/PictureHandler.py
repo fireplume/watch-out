@@ -205,9 +205,9 @@ class PictureHandler:
         if self._verbose >= 1:
             logger.debug("FFMPEG COMMAND: %s" % command)
         if self._verbose >= 3:
-            p = subprocess.Popen(command)
+            p = subprocess.Popen(command, shell=True)
         else:
-            p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
 
         timeout_flag = False
         exception = None
