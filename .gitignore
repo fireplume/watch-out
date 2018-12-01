@@ -4,5 +4,4 @@ __pycache__
 *.txt
 *.iml
 .idea
-ui/QWidgetPictureSettings.py
 

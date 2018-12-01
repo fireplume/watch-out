@@ -7,7 +7,7 @@ class DataCapHandler:
     def __init__(self, args, config):
         self._config = config
         self._simulation = args.simulation
-        if self._simulation is None:
+        if self._simulation is None or self._simulation[0] is None:
             self._data_cap_kb = int(self._config.get(OPTION_MONTHLY_DATA_ALLOWANCE_GB)) * 1024 * 1024
         else:
             self._data_cap_kb = int(args.simulation[0]) * 1024

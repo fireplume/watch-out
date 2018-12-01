@@ -95,7 +95,7 @@ def parse_args():
     parser.add_argument('-s',
                         dest='simulation',
                         metavar=("DATA_CAP_MG", "TIME_MULTIPLIER"),
-                        default=None,
+                        default=[None, 1],
                         nargs=2,
                         help='For debugging purposes, set the data cap in MB and a passing time multiplier (max 7200, 2 hours per second).')
 
