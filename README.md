@@ -30,6 +30,8 @@ Requirements:
 
 All your cameras don't need to have the same password or any password at all. You still need to provide a password on the command line. If no passwords are necessary, you may enter anything. Each camera's password may be hardcoded through the configuration tool or you may use a tag in the camera's configurator URL which will be replaced by the password specified on the command line.
 
+Note that to use a different password for each cameras, the password need to be hard coded in the camera configurator UI. If using the '{password:s}' token in the camera URL, the password specified on the command line will be used.
+
 # Configuring
 In the project's root folder, run:
     python3 configurator.py
