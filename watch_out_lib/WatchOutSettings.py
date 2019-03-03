@@ -33,7 +33,7 @@ class WatchOutSettings:
         # A warning picture such as a unhappy smiley pic or any such picture of your choice
         # It should be named 'data_cap_reached.jpg'
         self.data_cap_reached_picture_name = "data_cap_reached.jpg"
-        self.data_cap_reached_picture_path = Path(__file__).joinpath("..", self.data_cap_reached_picture_name)
+        self.data_cap_reached_picture_path = Path(os.path.dirname(__file__)).joinpath("..", self.data_cap_reached_picture_name)
 
         # FFMPEG configuration
         # camera_url example: rtsp://admin:{password:s}@192.168.1.2:554/ch0{camera_index:d}/0

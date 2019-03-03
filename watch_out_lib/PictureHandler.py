@@ -246,6 +246,9 @@ class PictureHandler:
             for cam_index in self._master_enabled_output_files[pic_type]:
                 output_file = self._master_enabled_output_files[pic_type][cam_index]
                 if not os.path.exists(output_file) and should_exist:
+                    # If directory doesn't exist, just continue
+                    if not os.path.isdir(os.path.dirname(output_file)):
+                        continue
                     shutil.copyfile(self._watch_out_settings.data_cap_reached_picture_path, output_file)
 
     def _check_for_new_backup_folder(self):
