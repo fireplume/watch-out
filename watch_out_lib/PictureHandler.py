@@ -230,8 +230,7 @@ class PictureHandler:
                 p.send_signal(signal.SIGTERM)
             except:
                 pass
-
-        if p.returncode != 0:
+        elif p.returncode != 0:
             if exception is not None:
                 logger.error(str(e))
             else:
