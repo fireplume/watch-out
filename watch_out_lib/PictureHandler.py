@@ -12,7 +12,6 @@ import stat
 import subprocess
 import sys
 
-
 SHOULD_EXIST = True
 SHOULD_NOT_EXIST = False
 
@@ -54,14 +53,14 @@ class PictureHandler:
         # Upload picture in atomic way to avoid configurator
         # to corrupt picture settings while uploading
         try:
-            #self._config.lock()
+            # self._config.lock()
             self._update_time_based_members()
             self._set_master_enabled_pictures()
             self._check_data_cap_reached_picture()
             if not self._data_cap_handler.data_cap_reached():
                 self._check_upload()
         finally:
-            #self._config.unlock()
+            # self._config.unlock()
             pass
 
     def _update_time_based_members(self):
@@ -75,7 +74,7 @@ class PictureHandler:
         self._master_enabled_output_files = dict()
         for pic_type in PARAM_PICTURE_TYPE_LIST:
             self._master_enabled_output_files[pic_type] = dict()
-            for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+            for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
                 if self._config.get(OPTION_PICTURE_UPLOAD_ENABLE, picture_type=pic_type, cam_index=cam_index):
                     self._master_enabled_output_files[pic_type][cam_index] = self._get_output_file(pic_type, cam_index)
 
@@ -172,14 +171,14 @@ class PictureHandler:
                     camera_url = camera_url_format_str.format(password=self._password)
 
             ffmpeg_base_command = self._watch_out_settings.ffmpeg_base_command.format(protocol=camera_protocol,
-                                                                                camera_url=camera_url)
+                                                                                      camera_url=camera_url)
 
             ffmpeg_command = self._watch_out_settings.ffmpeg_command_format_string.format(ffmpeg_base_command=ffmpeg_base_command,
-                                                                                    quality=quality,
-                                                                                    resolution=resolution,
-                                                                                    grayscale=grayscale_arg,
-                                                                                    pix_fmt=pix_format,
-                                                                                    output_file=output_file)
+                                                                                          quality=quality,
+                                                                                          resolution=resolution,
+                                                                                          grayscale=grayscale_arg,
+                                                                                          pix_fmt=pix_format,
+                                                                                          output_file=output_file)
             logger.debug("Uploading picture: Time: %s Cam Index: %d Cam type: %s" % (str(time_tracker.current_time), cam_index, pic_type), 2)
         except KeyError as e:
             msg = get_trace(e)
@@ -287,7 +286,7 @@ class PictureHandler:
             logger.debug("************************************************")
             logger.debug("Data cap reached, removing public pictures!")
             logger.debug("************************************************")
-            for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+            for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
                 cam_name = self._config.get(OPTION_CAMERA_DESCRIPTION, picture_type=PARAM_PICTURE_TYPE_TEMP, cam_index=cam_index)
                 cam_name = cam_name.replace(' ', '_')
                 output_file = self._watch_out_settings.temp_pictures_path.joinpath("%s.%s" % (cam_name, self._watch_out_settings.ffmpeg_output_format))
@@ -302,7 +301,7 @@ class PictureHandler:
 
     def _find_longest_expiry_delta(self):
         longest_delta = None
-        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
             for picture_type in PARAM_PICTURE_TYPE_LIST:
                 picture_expiry_delta = self._config.get(OPTION_PICTURE_EXPIRY_TIME_DELTA,
                                                         cam_index=cam_index,

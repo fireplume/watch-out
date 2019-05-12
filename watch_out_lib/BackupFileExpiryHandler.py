@@ -15,8 +15,8 @@ class AddChildError(Exception):
 
 class FileExpiryHandler:
     ROOT_FOLDER = 0
-    DATE_FOLDER = ROOT_FOLDER+1
-    HOUR_FOLDER = DATE_FOLDER+1
+    DATE_FOLDER = ROOT_FOLDER + 1
+    HOUR_FOLDER = DATE_FOLDER + 1
     PICTURES = HOUR_FOLDER + 1
 
     _file_type = [ROOT_FOLDER,
@@ -27,7 +27,7 @@ class FileExpiryHandler:
     _longest_expiry_delta = None
 
     def __init__(self,
-                 path:Path,
+                 path: Path,
                  parent=None,
                  level=ROOT_FOLDER):
         self._path = path
@@ -77,10 +77,10 @@ class FileExpiryHandler:
             logger.debug("No backup pictures left!", 1)
 
     @classmethod
-    def set_longest_expiry_delta(cls, delta:datetime.timedelta):
+    def set_longest_expiry_delta(cls, delta: datetime.timedelta):
         cls._longest_expiry_delta = delta
 
-    def add_child(self, child_file:Path, level, real_delta=None):
+    def add_child(self, child_file: Path, level, real_delta=None):
         # Already exists?
         if self.exists(child_file):
             return
@@ -95,11 +95,11 @@ class FileExpiryHandler:
         if child_creation_time is None:
             child_handler.destroy()
             raise AddChildError()
-        child_handler._set_expiry(child_creation_time+use_delta)
+        child_handler._set_expiry(child_creation_time + use_delta)
         self._children[str(child_file)] = child_handler
         return child_handler
 
-    def add_picture(self, output_file, expiry_delta:datetime.timedelta):
+    def add_picture(self, output_file, expiry_delta: datetime.timedelta):
         m = self._picture_element_re.search(output_file)
         if m:
             date_path = Path(m.group(3))
@@ -123,12 +123,12 @@ class FileExpiryHandler:
         else:
             raise AddChildError("Unable to add picture %s" % str(output_file))
 
-    def exists(self, child_path:Path):
+    def exists(self, child_path: Path):
         if str(child_path) in self._children:
             return True
         return False
 
-    def get_child(self, child_path:Path):
+    def get_child(self, child_path: Path):
         if str(child_path) in self._children:
             return self._children[str(child_path)]
         else:
@@ -156,7 +156,7 @@ class FileExpiryHandler:
     def level(self):
         return self._level
 
-    def _set_expiry(self, expiry_date:datetime.datetime):
+    def _set_expiry(self, expiry_date: datetime.datetime):
         self._expiry = expiry_date
 
     def is_empty(self):
@@ -241,7 +241,7 @@ class FileExpiryHandler:
                 continue
 
             if not is_picture_level:
-                child_handler.set_children(level=level+1)
+                child_handler.set_children(level=level + 1)
 
     def destroy(self):
         logger.debug("   Self destructing! %s" % str(self._path))

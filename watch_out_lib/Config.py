@@ -7,7 +7,6 @@ from pathlib import Path
 import pickle
 import sys
 
-
 ######################################################
 # CONSTANTS
 ######################################################
@@ -18,9 +17,9 @@ BLUE_STYLE_BG = "background-color: rgb(170, 170, 255);"
 YELLOW_STYLE_BG = "background-color: rgb(255, 255, 170);"
 RED_STYLE_BG = "background-color: rgba(255, 170, 170, 200);"
 LIGHT_BROWN_STYLE_BG = "background-color: rgb(255, 230, 130);"
-#APP_COLOR_BG = "background-color: rgb(220, 255, 220);" # Light green
-#APP_COLOR_BG = "background-color: rgb(180, 180, 180);" # Gray
-APP_COLOR_BG = "background-color: rgb(200, 200, 120);" # Khaki
+# APP_COLOR_BG = "background-color: rgb(220, 255, 220);" # Light green
+# APP_COLOR_BG = "background-color: rgb(180, 180, 180);" # Gray
+APP_COLOR_BG = "background-color: rgb(200, 200, 120);"  # Khaki
 
 GRADIENT_GREEN_BLUE_BG = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(200, 255, 200, 255), stop:1 rgba(200, 200, 255, 255));"
 GRADIENT_GREEN_YELLOW_BG = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(200, 255, 200, 255), stop:1 rgba(255, 255, 200, 255));"
@@ -31,19 +30,23 @@ RES_1600x1200 = "1600x1200"
 RES_1280x720 = "1280x720"
 RES_640x480 = "640x480"
 RESOLUTION_LIST = [RES_2560_1600,
-            RES_1980x1020,
-            RES_1600x1200,
-            RES_1280x720,
-            RES_640x480]
+                   RES_1980x1020,
+                   RES_1600x1200,
+                   RES_1280x720,
+                   RES_640x480]
 
 FORMAT_9BPP_YUV410P = "yuv410p"
 FORMAT_12BPP_YUVJ420P = "yuvj420p"
 FORMAT_12BPP_YUV420P = "yuv420p"  # restricted range
 FORMAT_16BPP_YUV422P = "yuv422p"
+FORMAT_24BPP_YUV444P = "yuv444p"
+FORMAT_32BPP_ARGB = "argb"
 FORMAT_LIST = [FORMAT_9BPP_YUV410P,
                FORMAT_12BPP_YUVJ420P,
                FORMAT_12BPP_YUV420P,
-               FORMAT_16BPP_YUV422P]
+               FORMAT_16BPP_YUV422P,
+               FORMAT_24BPP_YUV444P,
+               FORMAT_32BPP_ARGB]
 
 TIME_HM_FORMAT = "%Hh%Mm"
 TIME_MS_FORMAT = "%Mm%Ss"
@@ -148,6 +151,8 @@ PARAM_PICTURE_TYPE_BACKUP = 'Backup_Picture_Upload_Settings'
 # Include all param above:
 PARAM_PICTURE_TYPE_LIST = [PARAM_PICTURE_TYPE_TEMP,
                            PARAM_PICTURE_TYPE_BACKUP]
+
+
 ######################################################
 
 
@@ -168,9 +173,11 @@ class ConfigAllPictureUploadSettings:
 
 
 CONFIG_LOG_THRESHOLD = 3
+
+
 class Config:
     def __init__(self):
-        self._config_map = {OPTION_CURRENT_MONTH_RESET:False}
+        self._config_map = {OPTION_CURRENT_MONTH_RESET: False}
         if os.path.exists(CONFIG_FILE):
             self.read()
         else:
@@ -306,7 +313,7 @@ class Config:
         # Get object related option
         v = self.get(opt, picture_type=pic_type, cam_index=cam_index)
         try:
-            v1 = self.get(opt, picture_type=pic_type, cam_index=cam_index+1)
+            v1 = self.get(opt, picture_type=pic_type, cam_index=cam_index + 1)
         except KeyError:
             v1 = None
 

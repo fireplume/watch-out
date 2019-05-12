@@ -33,14 +33,14 @@ class Configurator(Ui_MainWindow, QObject):
         super(Configurator, self).setupUi(main_window)
         self._main_window = main_window
         self._pic_settings_config_ui_interface.setup_ui()
-        for i in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+        for i in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
             self._camera_selection_checkbox[i] = getattr(self, "checkBoxCam%d" % i)
         setattr(self._main_window, 'closeEvent', self.closeEvent)
         self._main_window.setStyleSheet(APP_COLOR_BG)
 
     # noinspection PyTypeChecker
     def setup(self):
-        self._pic_settings_config_ui_interface.set_ui_from_config([i for i in range(1, DEFAULT_NUMBER_OF_CAMERAS+1)])
+        self._pic_settings_config_ui_interface.set_ui_from_config([i for i in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1)])
         self.pushButtonClose.clicked.connect(self._terminate_program)
         self.pushButtonApply.clicked.connect(self._write_config)
         self.horizontalScrollBar_day_of_month_data_cap_reset.valueChanged.connect(self._update_day_data_cap_reset)
@@ -65,7 +65,7 @@ class Configurator(Ui_MainWindow, QObject):
         logger.debug("_configure_cameras")
         logger.debug("########################################")
         cam_index_array = []
-        for i in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+        for i in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
             if self._camera_selection_checkbox[i].isChecked():
                 cam_index_array.append(i)
         if len(cam_index_array) == 0:
@@ -84,7 +84,6 @@ class Configurator(Ui_MainWindow, QObject):
         timeout = self.spinBox_ffmpeg_timeout_s.value()
         self._config.set(OPTION_FFMPEG_TIMEOUT, str(timeout))
 
-
         self._config.set(OPTION_DAY_OF_MONTH_DATA_CAP_RESET,
                          self.horizontalScrollBar_day_of_month_data_cap_reset.value())
 
@@ -100,7 +99,7 @@ class Configurator(Ui_MainWindow, QObject):
             self._config.set(OPTION_CURRENT_MONTH_DATA_USAGE_KB, v)
 
         margin = self.spinBox_upload_stop_margin_MB.value()
-        margin = int(margin/32)*32
+        margin = int(margin / 32) * 32
         if margin == 0:
             margin = 32
         if margin > 512:
@@ -116,12 +115,12 @@ class Configurator(Ui_MainWindow, QObject):
         t.start()
 
     def _init_gui_with_config_value(self):
-        self._pic_settings_config_ui_interface.set_ui_from_config([i for i in range(1, DEFAULT_NUMBER_OF_CAMERAS+1)])
+        self._pic_settings_config_ui_interface.set_ui_from_config([i for i in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1)])
 
         allowance = int(self._config.get(OPTION_MONTHLY_DATA_ALLOWANCE_GB))
-        all_100s = int(floor(allowance/100))
-        all_10s = int(floor(allowance-all_100s*100)/10)
-        all_1s = allowance - all_100s*100 - all_10s*10
+        all_100s = int(floor(allowance / 100))
+        all_10s = int(floor(allowance - all_100s * 100) / 10)
+        all_1s = allowance - all_100s * 100 - all_10s * 10
         self.spinBox_data_allowance_gb_x_100.setValue(all_100s)
         self.spinBox_data_allowance_gb_x_10.setValue(all_10s)
         self.spinBox_data_allowance_gb_x_1.setValue(all_1s)
@@ -157,7 +156,7 @@ class Configurator(Ui_MainWindow, QObject):
             self.label_data_usage_value.setText("Apply Config to reset data usage,\nread config or exit to undo!")
         else:
             v = self._config.read(OPTION_CURRENT_MONTH_DATA_USAGE_KB)
-            #v = self._config.get()
+            # v = self._config.get()
             self.label_data_usage_value.setText(str(v))
             # noinspection PyCallByClass,PyTypeChecker
             QTimer.singleShot(1000, self._update_data_usage)
@@ -167,7 +166,7 @@ class Configurator(Ui_MainWindow, QObject):
         sys.exit(0)
 
     def _update_camera_style(self):
-        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
             temp_en = self._config.get(OPTION_PICTURE_UPLOAD_ENABLE,
                                        picture_type=PARAM_PICTURE_TYPE_TEMP,
                                        cam_index=cam_index)
@@ -189,7 +188,7 @@ class Configurator(Ui_MainWindow, QObject):
             cam_widget_checkbox_main_ui.update()
 
     def _update_camera_checkbox_description(self):
-        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
             cam_widget_checkbox_main_ui = self._camera_selection_checkbox[cam_index]
             config_camera_description = self._config.get(OPTION_CAMERA_DESCRIPTION,
                                                          picture_type=PARAM_PICTURE_TYPE_TEMP,
@@ -211,7 +210,7 @@ class Configurator(Ui_MainWindow, QObject):
     def pic_settings_ok_slot(self):
         logger.debug("pic_settings_ok_slot")
         self._main_window.setDisabled(False)
-        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS+1):
+        for cam_index in range(1, DEFAULT_NUMBER_OF_CAMERAS + 1):
             cam_widget_checkbox_main_ui = self._camera_selection_checkbox[cam_index]
             if not cam_widget_checkbox_main_ui.isChecked():
                 continue
@@ -221,6 +220,7 @@ class Configurator(Ui_MainWindow, QObject):
         # Update MainWindow camera checkbox description
         self._update_camera_checkbox_description()
         self._pic_settings_config_ui_interface.reset_multiple_cameras_selection_config_update()
+
 
 def parse_args():
     import argparse
@@ -235,6 +235,7 @@ def parse_args():
     args = parser.parse_args()
 
     return args
+
 
 def main():
     args = parse_args()

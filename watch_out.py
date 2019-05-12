@@ -21,7 +21,6 @@ import signal
 import sys
 import time
 
-
 EXCEPTION_SLEEP_TIME = 20
 
 
