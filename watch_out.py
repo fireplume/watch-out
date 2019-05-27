@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Notes
     Pixel formats size per pixel
