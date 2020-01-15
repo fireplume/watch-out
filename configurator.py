@@ -104,8 +104,8 @@ class Configurator(Ui_MainWindow, QObject):
         margin = int(margin / 32) * 32
         if margin == 0:
             margin = 32
-        if margin > 512:
-            margin = 512
+        if margin > 992:
+            margin = 992
         self._config.set(OPTION_UPLOAD_STOP_MARGIN_MB, margin)
 
         self._config.write()

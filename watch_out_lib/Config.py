@@ -60,7 +60,7 @@ PROTOCOL_TCP = 'tcp'
 # Number of cameras in your system
 DEFAULT_NUMBER_OF_CAMERAS = 8
 DEFAULT_MONTHLY_DATA_ALLOWANCE_GB = 8
-# Should be a multiple of 32, min 32, max 512
+# Should be a multiple of 32, min 32, max 992
 DEFAULT_UPLOAD_STOP_MARGIN_MB = 128
 DEFAULT_UPLOAD_INTERVAL_SECONDS = 300
 # Time before we kil ffmpeg if it froze (ffmpeg is the utility grabbing the video stream
@@ -205,15 +205,15 @@ class Config:
                     raise e
 
     def write(self, option=None, value=None, **kwargs):
-        if option is None:
-            if 'skip_log' not in kwargs:
-                logger.debug("###########################")
-                logger.debug("WRITE CONFIG FILE")
-                logger.debug("###########################")
-        else:
-            logger.debug("********************************")
-            logger.debug("Writing directly to config file: %s" % option)
-            logger.debug("********************************")
+        if 'skip_log' not in kwargs:
+            if option is None:
+                    logger.debug("###########################")
+                    logger.debug("WRITE CONFIG FILE")
+                    logger.debug("###########################")
+            else:
+                logger.debug("********************************")
+                logger.debug("Writing directly to config file: %s" % option)
+                logger.debug("********************************")
 
         if option is None:
             with open(CONFIG_FILE, 'wb') as fd:

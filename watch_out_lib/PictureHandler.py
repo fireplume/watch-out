@@ -243,6 +243,8 @@ class PictureHandler:
         for pic_type in self._master_enabled_output_files:
             for cam_index in self._master_enabled_output_files[pic_type]:
                 output_file = self._master_enabled_output_files[pic_type][cam_index]
+                # Replace filename so we don't copy bunch of data cap reached files under backup
+                output_file = os.path.join(os.path.dirname(output_file), self._watch_out_settings.data_cap_reached_picture_name)
                 if not os.path.exists(output_file) and should_exist:
                     # If directory doesn't exist, just continue
                     if not os.path.isdir(os.path.dirname(output_file)):
