@@ -21,7 +21,6 @@ class DataCapHandler:
     def add_usage(self, bytes_used):
         self._current_data_usage_bytes += bytes_used
         logger.debug("   Current data usage: %d KB" % (self._current_data_usage_bytes / 1024))
-        self._config.write(OPTION_CURRENT_MONTH_DATA_USAGE_KB, int(self._current_data_usage_bytes / 1024))
 
     def check_data_cap(self):
         if self._simulation is None:
@@ -92,4 +91,4 @@ class DataCapHandler:
             self._data_cap_reached = False
 
     def update_config_data_usage(self):
-        self._config.write(OPTION_CURRENT_MONTH_DATA_USAGE_KB, int(self._current_data_usage_bytes / 1024))
+        self._config.write(OPTION_CURRENT_MONTH_DATA_USAGE_KB, int(self._current_data_usage_bytes / 1024), skip_log=True)

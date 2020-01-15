@@ -79,21 +79,23 @@ class PictureHandler:
                     self._master_enabled_output_files[pic_type][cam_index] = self._get_output_file(pic_type, cam_index)
 
     def _check_upload(self):
-        folders_checked_or_pictures_uploaded = False
+        backup_folder_check = False
+        pictures_uploaded = False
 
         for pic_type in self._master_enabled_output_files:
             for cam_index in self._master_enabled_output_files[pic_type]:
                 if self._pic_upload_scheduled_enabled(pic_type, cam_index):
-                    if not folders_checked_or_pictures_uploaded and pic_type == PARAM_PICTURE_TYPE_BACKUP:
+                    if not backup_folder_check and pic_type == PARAM_PICTURE_TYPE_BACKUP:
                         self._check_for_new_backup_folder()
-                        folders_checked_or_pictures_uploaded = True
+                        backup_folder_check = True
 
                     upload_interval = self._config.get(OPTION_PICTURE_UPLOAD_INTERVAL_TIME_DELTA, picture_type=pic_type, cam_index=cam_index)
                     if self._last_pic_upload_time[pic_type][cam_index] is None or \
                             time_tracker.current_time - self._last_pic_upload_time[pic_type][cam_index] >= upload_interval:
                         self._extract_and_upload(pic_type, cam_index)
+                        pictures_uploaded = True
 
-        if folders_checked_or_pictures_uploaded:
+        if pictures_uploaded:
             self._data_cap_handler.update_config_data_usage()
 
     @staticmethod

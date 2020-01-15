@@ -207,9 +207,9 @@ class Config:
     def write(self, option=None, value=None, **kwargs):
         if 'skip_log' not in kwargs:
             if option is None:
-                    logger.debug("###########################")
-                    logger.debug("WRITE CONFIG FILE")
-                    logger.debug("###########################")
+                logger.debug("###########################")
+                logger.debug("WRITE CONFIG FILE")
+                logger.debug("###########################")
             else:
                 logger.debug("********************************")
                 logger.debug("Writing directly to config file: %s" % option)

@@ -74,7 +74,7 @@ class FileExpiryHandler:
             child.destroy()
 
         if self.is_empty():
-            logger.debug("No backup pictures left!", 1)
+            logger.debug("Backup picture expiry: none left!", 1)
 
     @classmethod
     def set_longest_expiry_delta(cls, delta: datetime.timedelta):
