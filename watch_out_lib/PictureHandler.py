@@ -108,7 +108,7 @@ class PictureHandler:
                                  second=0)
 
     def _pic_upload_scheduled_enabled(self, pic_type, cam_index):
-        # TODO: Could span one thread for each camera instead of looping the fuck around and rename camera handler?
+        # TODO: Could span one thread for each camera instead of looping around and rename camera handler?
         pic_master_upload_enable = self._config.get(OPTION_PICTURE_UPLOAD_ENABLE, picture_type=pic_type, cam_index=cam_index)
         if not pic_master_upload_enable:
             return False
